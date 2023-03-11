@@ -1,0 +1,4 @@
+build
+dist
+watchmap_sdk.egg-info
+.pytest_cache
