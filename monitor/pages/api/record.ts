@@ -1,6 +1,8 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type {NextApiRequest, NextApiResponse} from 'next'
 import {Collection, Event, Script} from "postman-collection";
+import * as fs from "fs";
+import newman from "newman";
 
 export default async function handler(
     req: NextApiRequest,
@@ -8,15 +10,13 @@ export default async function handler(
 ) {
     const collection = new Collection(JSON.parse(req.body))
     const preRequestScript = new Script({
-        // TODO: update so that it sends a request to the start-request url
         exec: [
-            'pm.collectionVariables.get("service");',
+            `pm.sendRequest(${process.env.PROJECT_HOST}/api/start-request?current_request=\`\$\{pm.request.url.getPath()\}\`);`
         ]
     })
     const testScript = new Script({
-        // TODO: update so that it sends a request to the end-request url
         exec: [
-            'pm.collectionVariables.get("service");'
+            `pm.sendRequest(${process.env.PROJECT_HOST}/api/end-request?current_request=\`\$\{pm.request.url.getPath()\}\`);`
         ]
     })
 
@@ -32,5 +32,11 @@ export default async function handler(
 
     collection.events.add(preRequestEvent)
     collection.events.add(testEvent)
+
+    fs.writeFileSync('collection.json', JSON.stringify(collection.toJSON()))
+    newman.run({
+        collection: 'collection.json',
+    });
+
     res.end()
 }
