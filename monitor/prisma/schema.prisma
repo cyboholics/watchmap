@@ -23,9 +23,10 @@ model ServiceInstance {
 }
 
 model Endpoint {
-  id       Int               @id @default(autoincrement())
-  name     String
-  services EndpointService[]
+  id        Int               @id @default(autoincrement())
+  name      String
+  services  EndpointService[]
+  is_mapped Boolean           @default(false)
 }
 
 model EndpointService {
