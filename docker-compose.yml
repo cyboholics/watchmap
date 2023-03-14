@@ -8,11 +8,9 @@ networks:
     driver: bridge
 
 services:
-  app:
-    container_name: watchmap
-    build:
-      context: .
-      dockerfile: Dockerfile
+  monitor:
+    container_name: watchmap-monitor
+    image: sudipmondal2002/watchmap:0.0.1-dev
     volumes:
       - ..:/workspace:cached
     networks:
