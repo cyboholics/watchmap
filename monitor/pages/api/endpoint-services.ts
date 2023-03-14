@@ -41,9 +41,8 @@ export default async function handler(
             services: Array.from(data[key])
         })
     }
-    const allEndPoints = endpoints.map(endpoint => endpoint.name)
-    const allServices = services.map(service => service.name)
-    console.log(ret, allEndPoints)
+    const allEndPoints = endpoints.map((endpoint: any) => endpoint.name)
+    const allServices = services.map((service :any) => service.name)
     res.status(200).json({
         allEndPoints: allEndPoints,
         allServices: allServices,
