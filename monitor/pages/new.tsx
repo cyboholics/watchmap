@@ -5,7 +5,9 @@ import {CollectionTree} from "../components/CollectionTree";
 export default function New() {
     const [collection, setCollection] = React.useState();
     return (
-        <Container>
+        <Container sx={{
+            paddingY: '1rem'
+        }}>
             <Button
                 variant="contained"
                 component="label"
