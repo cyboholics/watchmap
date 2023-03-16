@@ -9,6 +9,7 @@ export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse
 ) {
+    await prisma.$connect()
     const collection = new Collection(JSON.parse(req.body))
     const preRequestScript = new Script({
         exec: [
@@ -38,8 +39,12 @@ export default async function handler(
     await prisma.endpointService.deleteMany({})
     await prisma.endpoint.deleteMany({})
     newman.run({
-        collection: 'collection.json'
+        collection: 'collection.json',
+        // run requests one by one
+        iterationCount: 1,
+        reporters: 'cli'
     })
+    await prisma.$disconnect()
 
     res.end()
 }

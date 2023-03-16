@@ -12,6 +12,8 @@ export default async function handler(
         port: string
     } = req.body
 
+    await prisma.$connect()
+
     let relatedService = await prisma.service.findFirst({
         where: {
             name: name
@@ -35,6 +37,6 @@ export default async function handler(
             }
         }
     })
-
+    await prisma.$disconnect()
     res.status(201).end()
 }

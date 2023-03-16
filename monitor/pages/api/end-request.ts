@@ -13,6 +13,7 @@ export default async function handler(
     if (typeof currentRequest !== 'string') {
         return res.status(400).end()
     }
+    await prisma.$connect()
     const endpoint = await prisma.endpoint.findFirst({
         where: {
             name: currentRequest
@@ -29,5 +30,6 @@ export default async function handler(
             is_mapped: true
         }
     })
+    await prisma.$disconnect()
     res.end()
 }
