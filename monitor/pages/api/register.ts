@@ -12,20 +12,21 @@ export default async function handler(
         port: string
     } = req.body
 
+    const relatedService = await prisma.service.upsert({
+        where: {
+            name: name
+        },
+        update: {},
+        create: {
+            name: name
+        }
+    })
+
     await prisma.serviceInstance.create({
         data: {
             ip: ip,
             port: port,
-            // @ts-ignore
-            service: {
-                connectOrCreate: {
-                    where: {
-                        name: name
-                    }, create: {
-                        name: name
-                    }
-                }
-            }
+            service_id: relatedService.id
         }
     })
 
