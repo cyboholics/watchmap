@@ -10,7 +10,6 @@ export default async function handler(
     res: NextApiResponse
 ) {
     const collection = new Collection(JSON.parse(req.body))
-    console.log(process.env.PROJECT_HOST)
     const preRequestScript = new Script({
         exec: [
             `pm.sendRequest(\`${process.env.PROJECT_HOST}/api/start-request?current_request=\${pm.request.url.getPath()}\`);`
@@ -39,7 +38,7 @@ export default async function handler(
     await prisma.endpointService.deleteMany({})
     await prisma.endpoint.deleteMany({})
     newman.run({
-        collection: 'collection.json',
+        collection: 'collection.json'
     })
 
     res.end()

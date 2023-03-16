@@ -6,7 +6,6 @@ export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse
 ) {
-    console.log(req.body)
     const {name, ip, port}: {
         name: string,
         ip: string,
