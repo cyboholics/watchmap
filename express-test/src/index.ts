@@ -4,14 +4,18 @@ import { Request, Response } from 'express';
 import watchmapInitializer from 'watchmap-sdk'
 
 const app: Express = express();
-const watchmapMiddleware: any = watchmapInitializer('http://localhost:3000');
+async function setup(){
+  const watchmapMiddleware = await watchmapInitializer()
 
-app.use(watchmapMiddleware)
+  app.use(watchmapMiddleware)
 
-app.get('/', (req: Request, res: Response) => {
-  res.send('Hello World!');
-})
+  app.get('/', (req: Request, res: Response) => {
+    res.send('Hello World!');
+  })
 
-app.listen(3001, () => {
-  console.log('Example app listening on port 3001!');
-})
+  app.listen(process.env.PORT, () => {
+    console.log('Example app listening on port 3001!');
+  })
+}
+
+setup()
