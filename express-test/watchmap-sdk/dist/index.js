@@ -11,7 +11,7 @@ const parseNetInterface = (a) => {
     for (const key in a) {
         for (let i = 0; i < a[key].length; i++) {
             const obj = a[key][i];
-            if (obj["family"] === 'IPv4' && !obj["internal"]) {
+            if (obj["family"] === "IPv4" && !obj["internal"]) {
                 ipv4 = obj["address"];
                 return ipv4;
             }
@@ -32,27 +32,34 @@ const validateEnv = (WATCHMAP_SERVICE_NAME, WATCHMAP_SERVER_REGISTER_URL, PORT) 
 };
 const watchmapInitializer = () => {
     validateEnv(process.env.WATCHMAP_SERVICE_NAME, process.env.WATCHMAP_SERVER_REGISTER_URL, process.env.PORT);
-    axios_1.default.post(`${process.env.WATCHMAP_SERVER_REGISTER_URL}`, JSON.stringify({
-        name: process.env.WATCHMAP_SERVER_NAME,
-        ip: parseNetInterface((0, os_1.networkInterfaces)()),
-        port: process.env.PORT,
-    }))
+    let config = {
+        method: 'post',
+        url: `${process.env.WATCHMAP_SERVER_REGISTER_URL}`,
+        data: {
+            name: process.env.WATCHMAP_SERVICE_NAME,
+            ip: parseNetInterface((0, os_1.networkInterfaces)()),
+            port: process.env.PORT,
+        }
+    };
+    (0, axios_1.default)(config)
         .then((res) => {
         console.log("Service Registered with Watchmap");
-        console.log(res);
     })
         .catch((err) => {
-        console.log(err);
         throw new Error("Failed to Register Service with Watchmap");
     });
     const watchmapMiddleware = (request, response, next) => {
         const serviceName = process.env.WATCHMAP_SERVICE_NAME;
-        axios_1.default.post(`${process.env.WATCHMAP_SERVER_REQUEST_MONITOR_URL}`, JSON.stringify({
-            name: serviceName
-        })).then((res) => {
-            console.log(res);
+        const config = {
+            method: 'post',
+            url: `${process.env.WATCHMAP_SERVER_REQUEST_MONITOR_URL}`,
+            data: {
+                name: serviceName
+            }
+        };
+        console.log(config.data);
+        (0, axios_1.default)(config).then((res) => {
         }).catch((err) => {
-            console.log(err);
         });
         next();
     };

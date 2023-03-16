@@ -6,6 +6,7 @@ export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse
 ) {
+    console.log(req.body)
     const {name}: { name: string } = req.body
     const endpoint_to_map =  await prisma.endpoint.findFirst({
         where: {

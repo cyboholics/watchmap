@@ -24,26 +24,32 @@ const validateEnv: Function = (
     WATCHMAP_SERVER_REGISTER_URL: string | undefined,
     PORT: string | undefined): void => {
     let errMsg: string = ""
-    if(!WATCHMAP_SERVICE_NAME) errMsg += "Service Name not defined: Add process.env.WATCHMAP_SERVICE_NAME to your .env file\n"
-    if(!WATCHMAP_SERVER_REGISTER_URL) errMsg += "Watchmap Server Url not defined: Add process.env.WATCHMAP_SERVER_REGISTER_URL to your .env file\n"
-    if(!PORT) errMsg += "Your App Port not defined: Add process.env.PORT to your .env file\n"
-    if(errMsg) throw new Error(errMsg)
+    if (!WATCHMAP_SERVICE_NAME) errMsg += "Service Name not defined: Add process.env.WATCHMAP_SERVICE_NAME to your .env file\n"
+    if (!WATCHMAP_SERVER_REGISTER_URL) errMsg += "Watchmap Server Url not defined: Add process.env.WATCHMAP_SERVER_REGISTER_URL to your .env file\n"
+    if (!PORT) errMsg += "Your App Port not defined: Add process.env.PORT to your .env file\n"
+    if (errMsg) throw new Error(errMsg)
 }
 
 const watchmapInitializer = () => {
     validateEnv(process.env.WATCHMAP_SERVICE_NAME, process.env.WATCHMAP_SERVER_REGISTER_URL, process.env.PORT)
     // API Call to register service with watchmap client
-    axios.post(`${process.env.WATCHMAP_SERVER_REGISTER_URL}`, JSON.stringify({
-        name: process.env.WATCHMAP_SERVER_NAME,
-        ip: parseNetInterface(networkInterfaces()),
-        port: process.env.PORT,
-    }))
+    let config = {
+        method: 'post',
+        url: `${process.env.WATCHMAP_SERVER_REGISTER_URL}`,
+        data: {
+            name: process.env.WATCHMAP_SERVICE_NAME,
+            ip: parseNetInterface(networkInterfaces()),
+            port: process.env.PORT,
+        }
+    };
+    // console.log(config.data)
+    axios(config)
         .then((res) => {
             console.log("Service Registered with Watchmap")
-            console.log(res)
+            // console.log(res)
         })
         .catch((err) => {
-            console.log(err)
+            // console.log(err)
             throw new Error("Failed to Register Service with Watchmap")
         })
     /**
@@ -53,13 +59,20 @@ const watchmapInitializer = () => {
      * @param next: Express Next Function
      */
     const watchmapMiddleware = (request: Request, response: Response, next: Function): any => {
+        console.log("Middleware Called")
         const serviceName = process.env.WATCHMAP_SERVICE_NAME
-        axios.post(`${process.env.WATCHMAP_SERVER_REQUEST_MONITOR_URL}`, JSON.stringify({
-            name: serviceName
-        })).then((res) => {
-            console.log(res)
+        const config = {
+            method: 'post',
+            url: `${process.env.WATCHMAP_SERVER_REQUEST_MONITOR_URL}`,
+            data: {
+                name: serviceName
+            }
+        }
+        console.log(config.data)
+        axios(config).then((res) => {
+            // console.log(res)
         }).catch((err) => {
-            console.log(err)
+            // console.log(err)
         })
         next()
     }

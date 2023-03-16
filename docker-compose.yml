@@ -10,7 +10,7 @@ networks:
 services:
   monitor:
     container_name: watchmap-monitor
-    image: sudipmondal2002/watchmap:0.0.1-dev
+    image: sudipmondal2002/watchmap:0.0.2-dev
     volumes:
       - ..:/workspace:cached
     networks:
