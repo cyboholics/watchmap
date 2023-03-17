@@ -28,7 +28,7 @@ const validateEnv: Function = (
     if (errMsg) throw new Error(errMsg)
 }
 
-const watchmapInitializer = () => {
+const watchmapInitializer = async () => {
     validateEnv(process.env.WATCHMAP_SERVICE_NAME, process.env.WATCHMAP_SERVER_REGISTER_URL, process.env.PORT)
     // API Call to register service with watchmap client
     let config = {
@@ -40,14 +40,9 @@ const watchmapInitializer = () => {
             port: process.env.PORT,
         }
     };
-    axios(config)
-        .then((res) => {
-            console.log("Service Registered with Watchmap")
-        })
-        .catch((err) => {
-            throw new Error("Failed to Register Service with Watchmap")
-        })
-    return (request: Request, response: Response, next: Function): any => {
+    await axios(config)
+
+    return async (request: Request, response: Response, next: Function) => {
         console.log("Middleware Called")
         const serviceName = process.env.WATCHMAP_SERVICE_NAME
         const config = {
@@ -57,12 +52,10 @@ const watchmapInitializer = () => {
                 name: serviceName
             }
         }
-        console.log(config.data)
-        axios(config).then((res) => {
-            // console.log(res)
-        }).catch((err) => {
-            console.log(err)
-        })
+        try {
+            await axios(config)
+        } catch (err) {
+        }
         next()
     }
 }
