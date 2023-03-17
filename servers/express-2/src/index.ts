@@ -15,7 +15,7 @@ app.get('/express2-test1', (req, res) => {
 
 app.get('/express2-test2', async (req, res) => {
     console.log("express2-test2 called")
-    await axios.get('http://localhost:3001/express1-test3')
+    await axios.get('http://watchmap-express-1:3001/express1-test3')
     res.send('Hello World From Test2!');
 });
 
