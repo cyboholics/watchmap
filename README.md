@@ -6,3 +6,15 @@ The High Level Design
 1. Middleware (implimented as an sdk) acts as live watcher for the incoming request to an API of a particular microservice from the concerned macroservice.
 2. The watchmap server runs as a next.js application which recieves anlytics logs from middleware to process the API dependency graph.
 3. The analytics dashboard and watchmap server make up as next app, the analytics dashboard provide visual presentation of API dependency graph.
+
+## Expressjs SDK
+
+In your server, add these lines
+```ts
+import express from 'express';
+import watchmap from '@cyboholics/watchmap-js-sdk';
+...
+const app = express();
+app.use(await watchmap())
+...
+```
