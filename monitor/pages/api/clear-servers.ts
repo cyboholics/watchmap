@@ -8,6 +8,7 @@ export default async function handler(
 ) {
     await prisma.$connect()
     await prisma.endpointService.deleteMany({})
+    await prisma.serviceInstance.deleteMany({})
     await prisma.service.deleteMany({})
     await prisma.$disconnect()
     res.end()
