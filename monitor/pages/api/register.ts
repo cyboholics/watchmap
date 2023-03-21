@@ -6,12 +6,13 @@ export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse
 ) {
-    console.log(req.body)
     const {name, ip, port}: {
         name: string,
         ip: string,
         port: string
     } = req.body
+
+    await prisma.$connect()
 
     let relatedService = await prisma.service.findFirst({
         where: {
@@ -36,6 +37,6 @@ export default async function handler(
             }
         }
     })
-
+    await prisma.$disconnect()
     res.status(201).end()
 }

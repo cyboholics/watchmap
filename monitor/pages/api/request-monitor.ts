@@ -6,8 +6,9 @@ export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse
 ) {
-    console.log(req.body)
     const {name}: { name: string } = req.body
+
+    await prisma.$connect()
     const endpoint_to_map =  await prisma.endpoint.findFirst({
         where: {
             // @ts-ignore
@@ -33,6 +34,8 @@ export default async function handler(
             }
         }
     })
+
+    await prisma.$disconnect()
 
     res.status(201).end()
 }

@@ -1,21 +1,9 @@
 import React from "react";
 import {Box, Container, Grid, Switch, Typography} from "@mui/material";
-
-type EndpointService = {
-    allEndPoints: string[],
-    allServices: string[],
-    mapping: {
-        endpoint: string,
-        services: string[]
-    }[]
-}
+import {EndpointServiceContext} from "../providers/EndpointServiceProvider";
 
 export default function Home() {
-    const [data, setData] = React.useState<EndpointService>({
-        allEndPoints: [],
-        allServices: [],
-        mapping: []
-    })
+    const {data, setData} = React.useContext(EndpointServiceContext)
     const [failedServices, setFailedServices] = React.useState<string[]>([])
     const {allEndPoints, allServices, mapping} = data
 

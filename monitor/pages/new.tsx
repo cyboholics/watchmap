@@ -4,6 +4,7 @@ import {CollectionTree} from "../components/CollectionTree";
 
 export default function New() {
     const [collection, setCollection] = React.useState();
+    const [recording, setRecording] = React.useState(false)
     return (
         <Container sx={{
             paddingY: '1rem'
@@ -34,12 +35,17 @@ export default function New() {
                     hidden
                 />
             </Button>
-            {collection && <Button onClick={async ()=>{
-                await fetch('/api/record', {
-                    method: 'POST',
-                    body: JSON.stringify(collection)
-                })
-            }}>
+            {collection && <Button
+                onClick={async () => {
+                    setRecording(true)
+                    await fetch('/api/record', {
+                        method: 'POST',
+                        body: JSON.stringify(collection)
+                    })
+                    setRecording(false)
+                }}
+                disabled={recording}
+            >
                 Start Recording
             </Button>}
             {collection && <CollectionTree collectionData={collection}/>}

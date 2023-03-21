@@ -9,7 +9,7 @@ export default async function handler(
     if (req.method !== 'GET') {
         return res.status(405).end()
     }
-
+    await prisma.$connect()
     const endpointServices = await prisma.endpointService.findMany({
         include: {
             service: true,
@@ -43,6 +43,7 @@ export default async function handler(
     }
     const allEndPoints = endpoints.map((endpoint: any) => endpoint.name)
     const allServices = services.map((service :any) => service.name)
+    await prisma.$disconnect()
     res.status(200).json({
         allEndPoints: allEndPoints,
         allServices: allServices,
