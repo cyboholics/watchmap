@@ -77,3 +77,22 @@ services:
       WATCHMAP_SERVER_REQUEST_MONITOR_URL: http://monitor:3000/api/request-monitor
       WATCHMAP_SERVICE_NAME: Express-2
       PORT: 3002
+
+  django-1:
+    container_name: watchmap-django-1
+    build:
+      context: ./servers/django_1
+      dockerfile: Dockerfile
+    volumes:
+      - ..:/workspace:cached
+    networks:
+      - watchmap
+    ports:
+      - "8000:8000"
+    depends_on:
+      - monitor
+    environment:
+      WATCHMAP_SERVER_REGISTER_URL: http://monitor:3000/api/register
+      WATCHMAP_SERVER_REQUEST_MONITOR_URL: http://monitor:3000/api/request-monitor
+      WATCHMAP_SERVICE_NAME: Django-1
+      PORT: 8000
