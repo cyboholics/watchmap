@@ -19,8 +19,9 @@ const setup = async () => {
         res.send('Hello World From Test2!');
     });
 
-    app.get('/express1-test3', (req, res) => {
+    app.get('/express1-test3', async (req, res) => {
         console.log("express1-test3 called")
+        await axios.get('http://django-1:8000/django1-test1')
         res.send('Hello World From Test3!');
     });
 
