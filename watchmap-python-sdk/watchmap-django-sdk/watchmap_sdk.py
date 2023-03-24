@@ -2,9 +2,6 @@ import requests
 import environ
 import os
 
-from urllib.request import urlopen
-import re as r
-
 from django.http import HttpResponse
 
 

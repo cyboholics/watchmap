@@ -51,7 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django_1.middlewares.watchmap_sdk.WatchmapMiddleware',
+    'watchmap-django-sdk.watchmap_sdk.WatchmapMiddleware',
 ]
 
 ROOT_URLCONF = 'django_1.urls'
