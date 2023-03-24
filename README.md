@@ -33,3 +33,7 @@ MIDDLEWARE = [
      ...
 ]
 ```
+## monitor snapshots
+![image](https://user-images.githubusercontent.com/74463091/227615430-8ba3eae4-00b8-44eb-85bf-24dfc8bd620a.png)
+![image](https://user-images.githubusercontent.com/74463091/227615439-c3b41615-0f29-4ef1-a9f4-d0896524ea14.png)
+
