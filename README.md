@@ -10,6 +10,9 @@ The High Level Design
 ## Expressjs SDK
 
 In your server, add these lines
+```sh
+$ npm i @cyboholics/watchmap-js-sdk
+```
 ```ts
 import express from 'express';
 import watchmap from '@cyboholics/watchmap-js-sdk';
@@ -17,4 +20,16 @@ import watchmap from '@cyboholics/watchmap-js-sdk';
 const app = express();
 app.use(await watchmap())
 ...
+```
+
+## Django SDK
+```sh
+$ pip install watchmap-django-sdk
+```
+```py
+MIDDLEWARE = [
+     ...
+    'watchmap-django-sdk.watchmap_sdk.WatchmapMiddleware'
+     ...
+]
 ```
