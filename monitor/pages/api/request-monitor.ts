@@ -41,20 +41,21 @@ export default async function handler(
 
     if(serverStack.length > 0){
         const parent = serverStack[serverStack.length - 1]
-        console.log(parent, service)
-        await prisma.serviceEdges.update({
-            where: {
-                from_id_to_id: {
-                    from_id: parent.id,
-                    to_id: service.id
+        if (parent.id !== service.id) {
+            await prisma.serviceEdges.update({
+                where: {
+                    from_id_to_id: {
+                        from_id: parent.id,
+                        to_id: service.id
+                    }
+                },
+                data: {
+                    count: {
+                        increment: 1
+                    }
                 }
-            },
-            data: {
-                count: {
-                    increment: 1
-                }
-            }
-        })
+            })
+        }
     }
     serverStack.push(service)
 
