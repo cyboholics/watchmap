@@ -34,6 +34,7 @@ MIDDLEWARE = [
 ]
 ```
 ## monitor snapshots
-![image](https://user-images.githubusercontent.com/74463091/227615430-8ba3eae4-00b8-44eb-85bf-24dfc8bd620a.png)
-![image](https://user-images.githubusercontent.com/74463091/227615439-c3b41615-0f29-4ef1-a9f4-d0896524ea14.png)
+![image](https://github.com/cyboholics/watchmap/assets/74463091/e57ff653-f69f-422f-949e-220d434bb84f)
+![image](https://github.com/cyboholics/watchmap/assets/74463091/6114ce17-bf15-4daa-b1ec-d24458fee291)
+
 
