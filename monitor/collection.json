@@ -1,1 +1,154 @@
-{"_":{"postman_id":"1b91cdb9-5514-4157-a17e-a1e7108a1b8b","exporter_id":"14670440"},"item":[{"id":"a9cc1e42-4695-42a5-a40b-829a081c1ab2","name":"express 1","item":[{"id":"347c420d-0d7a-4d10-b1d2-b860d87090c0","name":"test 1","request":{"url":{"protocol":"http","port":"3001","path":["express1-test1"],"host":["localhost"],"query":[],"variable":[]},"method":"GET"},"response":[],"event":[]},{"id":"920cc71e-7fdd-45fc-ab2b-5cfe009e32e5","name":"test 2","request":{"url":{"protocol":"http","port":"3001","path":["express1-test2"],"host":["localhost"],"query":[],"variable":[]},"method":"GET"},"response":[],"event":[]},{"id":"d9d3553e-13d8-40d1-9922-2037eb8a1834","name":"test 3","request":{"url":{"protocol":"http","port":"3001","path":["express1-test3"],"host":["localhost"],"query":[],"variable":[]},"method":"GET"},"response":[],"event":[]}],"event":[]},{"id":"dbe9d088-4da9-42b4-9e6d-9daf2b0d72bb","name":"express 2","item":[{"id":"f26610c1-7d37-4b99-8803-32f9541e71e3","name":"test 1","request":{"url":{"protocol":"http","port":"3002","path":["express2-test1"],"host":["localhost"],"query":[],"variable":[]},"method":"GET"},"response":[],"event":[]},{"id":"de1aca23-46d0-4d94-b79b-91b1aa678762","name":"test 2","request":{"url":{"protocol":"http","port":"3002","path":["express2-test2"],"host":["localhost"],"query":[],"variable":[]},"method":"GET"},"response":[],"event":[]},{"id":"988fac50-582c-4413-9ff6-286970a84aa1","name":"test 3","request":{"url":{"protocol":"http","port":"3002","path":["express2-test3"],"host":["localhost"],"query":[],"variable":[]},"method":"GET"},"response":[],"event":[]}],"event":[]}],"event":[{"listen":"prerequest","script":{"id":"aceb7e90-1192-4486-97f6-116b4af5409a","type":"text/javascript","exec":["pm.sendRequest(`http://localhost:3000/api/start-request?current_request=${pm.request.url.getPath()}`);"]}},{"listen":"test","script":{"id":"91b0320f-8769-4f23-b82c-d403216df14e","type":"text/javascript","exec":["pm.sendRequest(`http://localhost:3000/api/end-request?current_request=${pm.request.url.getPath()}`);"]}}],"variable":[],"info":{"_postman_id":"1b91cdb9-5514-4157-a17e-a1e7108a1b8b","name":"watchmap","schema":"https://schema.getpostman.com/json/collection/v2.1.0/collection.json"}}
+{
+	"info": {
+		"_postman_id": "fa15d510-c7ca-4036-b5e6-2fade5b41389",
+		"name": "watchmap",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28881195"
+	},
+	"item": [
+		{
+			"name": "express 1",
+			"item": [
+				{
+					"name": "test 1",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://express-1:3001/express1-test1",
+							"protocol": "http",
+							"host": [
+								"express-1"
+							],
+							"port": "3001",
+							"path": [
+								"express1-test1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "test 2",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://express-1:3001/express1-test2",
+							"protocol": "http",
+							"host": [
+								"express-1"
+							],
+							"port": "3001",
+							"path": [
+								"express1-test2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "test 3",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://express-1:3001/express1-test3",
+							"protocol": "http",
+							"host": [
+								"express-1"
+							],
+							"port": "3001",
+							"path": [
+								"express1-test3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "express 2",
+			"item": [
+				{
+					"name": "test 1",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://express-2:3002/express2-test1",
+							"protocol": "http",
+							"host": [
+								"express-2"
+							],
+							"port": "3002",
+							"path": [
+								"express2-test1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "test 2",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://express-2:3002/express2-test2",
+							"protocol": "http",
+							"host": [
+								"express-2"
+							],
+							"port": "3002",
+							"path": [
+								"express2-test2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "test 3",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://express-2:3002/express2-test3",
+							"protocol": "http",
+							"host": [
+								"express-2"
+							],
+							"port": "3002",
+							"path": [
+								"express2-test3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.sendRequest(`http://localhost:3000/api/start-request?current_request=${pm.request.url.getPath()}`);"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.sendRequest(`http://localhost:3000/api/end-request?current_request=${pm.request.url.getPath()}`);"
+				]
+			}
+		}
+	]
+}

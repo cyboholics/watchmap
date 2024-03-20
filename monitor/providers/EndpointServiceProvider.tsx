@@ -5,6 +5,11 @@ type EndpointService = {
     mapping: {
         endpoint: string,
         services: string[]
+    }[],
+    graph: {
+        source: string,
+        target: string,
+        weight: number
     }[]
 }
 export const EndpointServiceContext = createContext<{
@@ -14,7 +19,8 @@ export const EndpointServiceContext = createContext<{
     data: {
         allEndPoints: [],
         allServices: [],
-        mapping: []
+        mapping: [],
+        graph: []
     }, setData: (data: EndpointService) => {}
 })
 
@@ -22,7 +28,8 @@ export const EndpointServiceProvider = ({children}:any) => {
     const [data, setData] = React.useState<EndpointService>({
         allEndPoints: [],
         allServices: [],
-        mapping: []
+        mapping: [],
+        graph: []
     })
 
     return <EndpointServiceContext.Provider value={{data, setData}}>

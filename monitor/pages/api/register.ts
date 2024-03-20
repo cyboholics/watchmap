@@ -1,6 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type {NextApiRequest, NextApiResponse} from 'next'
 import prisma from "../../libs/prisma";
+import {Service} from "@prisma/client";
 
 export default async function handler(
     req: NextApiRequest,
@@ -11,6 +12,8 @@ export default async function handler(
         ip: string,
         port: string
     } = req.body
+
+    console.log('register', name, ip, port)
 
     await prisma.$connect()
 
@@ -37,6 +40,28 @@ export default async function handler(
             }
         }
     })
+    const allServices = await prisma.service.findMany({
+        where: {
+            id: {
+                not: relatedService.id
+            }
+        }
+    })
+    await prisma.serviceEdges.createMany({
+        data: allServices.map((service: Service) => {
+            return {
+                from_id: relatedService!.id,
+                to_id: service.id
+            }
+        }).concat(allServices.map((service: Service) => {
+            return {
+                from_id: service.id,
+                to_id: relatedService!.id
+            }
+        })),
+        skipDuplicates: true
+    })
+
     await prisma.$disconnect()
     res.status(201).end()
 }

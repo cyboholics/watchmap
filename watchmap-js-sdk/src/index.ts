@@ -49,9 +49,26 @@ const watchmapInitializer = async () => {
             method: 'post',
             url: `${process.env.WATCHMAP_SERVER_REQUEST_MONITOR_URL}`,
             data: {
-                name: serviceName
+                name: serviceName,
+                event: 'request-started'
             }
         }
+
+        response.on('finish', async () => {
+            const config = {
+                method: 'post',
+                url: `${process.env.WATCHMAP_SERVER_REQUEST_MONITOR_URL}`,
+                data: {
+                    name: serviceName,
+                    event: 'request-ended'
+                }
+            }
+            try {
+                await axios(config)
+            } catch (err) {
+            }
+        })
+
         try {
             await axios(config)
         } catch (err) {

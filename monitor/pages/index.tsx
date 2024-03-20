@@ -1,12 +1,14 @@
 import React from "react";
 import {Box, Container, Grid, Switch, Typography} from "@mui/material";
 import {EndpointServiceContext} from "../providers/EndpointServiceProvider";
+import dynamic from 'next/dynamic';
+const DisplayGraph = dynamic(import('../components/Graph'), { ssr: false })
 
 export default function Home() {
     const {data, setData} = React.useContext(EndpointServiceContext)
     const [failedServices, setFailedServices] = React.useState<string[]>([])
-    const {allEndPoints, allServices, mapping} = data
-
+    const {allEndPoints, allServices, mapping, graph} = data
+    console.log(graph)
     const isEndpointDown = (endpoint: string) => {
         const services = mapping.find((m) => {
             return m.endpoint === endpoint
@@ -58,6 +60,7 @@ export default function Home() {
                     })
                 }
             </Grid>
+            <DisplayGraph graph={graph}/>
         </Container>
         <Container sx={{
             width: '30%',

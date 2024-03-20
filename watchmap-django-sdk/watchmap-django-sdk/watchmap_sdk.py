@@ -35,6 +35,11 @@ class WatchmapMiddleware:
             raise Exception('WATCHMAP_SERVICE_NAME is not set')
         requests.post(url, data={
             'name': service_name,
+            'event': 'request-started',
         })
         response = self.get_response(request)
+        requests.post(url, data={
+            'name': service_name,
+            'event': 'request-ended',
+        })
         return HttpResponse(response)
